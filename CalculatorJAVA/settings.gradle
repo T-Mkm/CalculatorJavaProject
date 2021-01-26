@@ -1,0 +1,2 @@
+rootProject.name = "CalculatorJAVA"
+include ':app'
