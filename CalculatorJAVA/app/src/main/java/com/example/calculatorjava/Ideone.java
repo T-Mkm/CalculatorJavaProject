@@ -6,7 +6,7 @@ import java.util.Deque;
 import java.util.List;
 
 class Ideone {
-    public static String calc(List<String> postfix) {
+    public String calc(List<String> postfix) {
         Deque<Double> stack = new ArrayDeque<Double>();
         for (String x : postfix) {
             if (x.equals("sqrt")) stack.push(Math.sqrt(stack.pop()));
@@ -32,7 +32,7 @@ class Ideone {
         return isInteger(""+stack.pop());
     }
 
-    private static String isInteger(String str_res){
+    private String isInteger(String str_res){
         char dot = str_res.charAt(str_res.length() - 2);
         char nul = str_res.charAt(str_res.length() - 1);
 

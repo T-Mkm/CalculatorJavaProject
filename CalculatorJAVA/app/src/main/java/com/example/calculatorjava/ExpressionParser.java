@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 class ExpressionParser {
-    private static String operators = "+-*/";
-    private static String delimiters = "() " + operators;
-    public static boolean flag = true;
+    private String operators = "+-*/";
+    private String delimiters = "() " + operators;
+    private boolean flag = true;
 
-    private static boolean isDelimiter(String token) {
+    private boolean isDelimiter(String token) {
         if (token.length() != 1) return false;
         for (int i = 0; i < delimiters.length(); i++) {
             if (token.charAt(0) == delimiters.charAt(i)) return true;
@@ -20,7 +20,7 @@ class ExpressionParser {
         return false;
     }
 
-    private static boolean isOperator(String token) {
+    private boolean isOperator(String token) {
         if (token.equals("u-")) return true;
         for (int i = 0; i < operators.length(); i++) {
             if (token.charAt(0) == operators.charAt(i)) return true;
@@ -28,19 +28,23 @@ class ExpressionParser {
         return false;
     }
 
-    private static boolean isFunction(String token) {
+    private boolean isFunction(String token) {
         if (token.equals("sqrt") || token.equals("cube") || token.equals("pow10")) return true;
         return false;
     }
 
-    private static int priority(String token) {
+    private int priority(String token) {
         if (token.equals("(")) return 1;
         if (token.equals("+") || token.equals("-")) return 2;
         if (token.equals("*") || token.equals("/")) return 3;
         return 4;
     }
 
-    public static List<String> parse(String infix) {
+    public boolean getFlag(){
+        return this.flag;
+    }
+
+    public List<String> parse(String infix) {
         List<String> postfix = new ArrayList<String>();
         Deque<String> stack = new ArrayDeque<String>();
         StringTokenizer tokenizer = new StringTokenizer(infix, delimiters, true);

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Model {
     private MainActivity viewer;
+    private ExpressionParser parser;
+    private Ideone ideone;
     private Boolean action;
     private String temp;
     private String expression;
@@ -15,6 +17,8 @@ public class Model {
 
     public Model(MainActivity viewer) {
         this.viewer = viewer;
+        this.parser = new ExpressionParser();
+        this.ideone = new Ideone();
         expression = "";
         temp = "";
         log  = "";
@@ -62,14 +66,12 @@ public class Model {
         } else if (value.equals("=")) {
             String fullExpression = expression + " " + temp;
             if (expression.length() > 0 && temp.length() > 0) {
-                ExpressionParser n = new ExpressionParser();
-                List<String> parsedExpression = n.parse(fullExpression);
-                temp = parsedExpression.toString();
+                List<String> parsedExpression = parser.parse(fullExpression);
 
-                if (n.flag) {
+                if (parser.getFlag()) {
                     log = log + ((log.length() > 0) ? "\n\n\r" : "") + fullExpression + " = ";
                     for (String x : parsedExpression) System.out.print(x + " ");
-                    temp = Ideone.calc(parsedExpression);
+                    temp = ideone.calc(parsedExpression);
 
                     if (temp.equals("Infinity") || temp.equals("NaN")) {
                         temp = "0";
@@ -132,7 +134,6 @@ public class Model {
             }
         }
 
-        viewer.setFontSize(new String(expression + " " + temp).length());
         viewer.update(expression + " " + temp, log);
     }
 

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setFontSize(Integer length) {
+    private void setFontSize(Integer length) {
         if (length <= 11) {
             textField.setTextSize(60);
         } else if (length > 11 && length < 18) {
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void update(String expression, String log) {
+        setFontSize(expression.length());
         textField.setText(expression);
         logField.setText(log);
 
